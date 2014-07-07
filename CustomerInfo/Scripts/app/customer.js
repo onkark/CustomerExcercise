@@ -1,5 +1,5 @@
-﻿appRoot.controller('CustomerController', function ($scope, $location, $resource) {
- 
+﻿appRoot.controller('CustomerController', function ($scope, $location, $resource, $dialogs) {
+
     var userResource = $resource('/api/customer/', {}, { update: { method: 'PUT' } });
     $scope.usersList = [];
 
@@ -14,7 +14,7 @@
 
     $scope.$watchCollection('selectedUsers', function () {
         $scope.selectedUser = angular.copy($scope.selectedUsers[0]);
-    }); 
+    });
 
     $scope.userGrid = {
         data: 'usersList',
@@ -30,7 +30,15 @@
         ]
     };
 
+    //update grid with updated data
     $scope.updateUser = function (user) {
+
+        if (user.FirstName.length <= 0)
+        {
+            alert('Customer First name required.')
+            return;
+        }
+                
         userResource.update(user, function (updatedUser) {
             $scope.selectedUsers[0].Id = updatedUser.id;
             $scope.selectedUsers[0].FirstName = updatedUser.FirstName;
@@ -44,27 +52,29 @@
             $scope.selectedUsers[0].City = updatedUser.City;
             $scope.selectedUsers[0].Zip = updatedUser.Zip;
             $scope.selectedUsers[0].SSN = updatedUser.SSN;
-            //$scope.selectedUsers[0].ModifiedOn = updatedUser.modifiedOn;
+            $dialogs.notify('Customer Updated', 'Customer Info updated.');
 
         });
     };
 
+    //Country List
     $scope.countryList = [
         {
             name: 'USA', id: 'usa',
-                states: [
-                    { name: 'Alabama', id: 'al', cities: [{ name: 'Alabaster', id: 'al' }, { name: 'Arab', id: 'ar' }, { name: 'Banks', id: 'bk' }] },
-                    { name: 'Alaska', id: 'as', cities: [{ name: 'Lakes', id: 'lk' }, { name: 'Kenai', id: 'kn' }, { name: 'Gateway', id: 'gw' }] },
-                    { name: 'New Jersey', id: 'nj', cities: [{ name: 'Atlanta', id: 'at' }, { name: 'Jersey', id: 'js' }, { name: 'Newark', id: 'nw' }] },
-                    { name: 'New Carolina', id: 'nc', cities: [{ name: 'Charlotte', id: 'clt' }, { name: 'Religh', id: 'reli' }, { name: 'Wilmington', id: 'wilm' }] },
-                    { name: 'New York', id: 'ny', cities: [{ name: 'Kingston', id: 'kg' }, { name: 'Lockport', id: 'lp' }, { name: 'Olean', id: 'ol' }] },
-                    { name: 'Texas', id: 'tx', cities: [{ name: 'Dallas', id: 'dl' }, { name: 'Austin', id: 'as' }, { name: 'Houston', id: 'hs' }] }]
+            states: [
+                { name: 'Alabama', id: 'al', cities: [{ name: 'Alabaster', id: 'al' }, { name: 'Arab', id: 'ar' }, { name: 'Banks', id: 'bk' }] },
+                { name: 'Alaska', id: 'as', cities: [{ name: 'Lakes', id: 'lk' }, { name: 'Kenai', id: 'kn' }, { name: 'Gateway', id: 'gw' }] },
+                { name: 'New Jersey', id: 'nj', cities: [{ name: 'Atlanta', id: 'at' }, { name: 'Jersey', id: 'js' }, { name: 'Newark', id: 'nw' }] },
+                { name: 'New Carolina', id: 'nc', cities: [{ name: 'Charlotte', id: 'clt' }, { name: 'Religh', id: 'reli' }, { name: 'Wilmington', id: 'wilm' }] },
+                { name: 'New York', id: 'ny', cities: [{ name: 'Kingston', id: 'kg' }, { name: 'Lockport', id: 'lp' }, { name: 'Olean', id: 'ol' }] },
+                { name: 'Texas', id: 'tx', cities: [{ name: 'Dallas', id: 'dl' }, { name: 'Austin', id: 'as' }, { name: 'Houston', id: 'hs' }] }]
         }
     ];
 
+    //Gender List
     $scope.genderTitle = [
-            { gender: 'Male', id: 'M', titles: [{ title: 'Mr', id: 'Mr' }, { title: 'Sir', id: 'Sir' }, { title: 'Jr', id: 'Jr' }] },
-            { gender: 'Female', id: 'F', titles: [{ title: 'Ms', id: 'Ms' }, { title: 'Mrs', id: 'Mrs' }, { title: 'Miss', id: 'Miss' }] }]
+            { gender: 'Male', id: 'M', titles: [{ title: 'Mr.', id: 'Mr' }, { title: 'Dr.', id: 'Sir' }, { title: 'Jr.', id: 'Jr' }] },
+            { gender: 'Female', id: 'F', titles: [{ title: 'Ms.', id: 'Ms' }, { title: 'Mrs.', id: 'Mrs' }, { title: 'Dr.', id: 'Dr' }] }]
 
 
     $scope.$watch('selectedUser.Gender', function (selectedGenderId) {
@@ -95,14 +105,26 @@
     $scope.$watch('selectedUser.genderMale', function (genderMale) {
         if (genderMale === 1)
             $scope.selectedUser.Gender = 'M';
-    })
+    });
 
     $scope.$watch('selectedUser.genderFemale', function (genderFemale) {
         if (genderFemale === 1)
             $scope.selectedUser.Gender = 'F';
-    })
+    });
 
-    
+
+    //Ref# http://codepen.io/m-e-conroy/pen/ALsdF
+    $scope.launch = function (which) {
+        var dlg = null;
+        dlg = $dialogs.notify('Please Confirm', 'Do you want to save Customer Info?');
+        dlg.result.then(function (btn) {
+            $scope.confirmed = 'Customer Info Saved!';
+        }, function (btn) {
+            $scope.confirmed = 'Customer Info Not Saved';
+        });
+    }; // end launch
+
+
     var init = function () {
 
     }

@@ -16,18 +16,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
+                <a class="navbar-brand" href='#/customer'>Customer Info</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    <li data-ng-class="{active : activeViewPath==='/home'}"><a href='#/home'>Home</a></li>
-                    <li data-ng-class="{active : activeViewPath==='/demo'}"><a href="#/demo">Demo</a></li>
-                    <li data-ng-class="{active : activeViewPath==='/angular'}"><a href='#/angular'>Learn Angular</a></li>
-                    <li data-ng-class="{active : activeViewPath==='/about'}"><a href='#/about'>About</a></li>
-                    <li data-ng-class="{active : activeViewPath==='/contact'}"><a href='#/contact'>Contact</a></li>
+                <ul class="nav navbar-nav">                    
                     <li data-ng-class="{active : activeViewPath==='/customer'}"><a href='#/customer'>Customer</a></li>
+                    <li data-ng-class="{active : activeViewPath==='/contact'}"><a href='#/contact'>Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -43,6 +37,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/angular")
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js" type="text/javascript"></script>
+    <script src="http://m-e-conroy.github.io/angular-dialog-service/javascripts/dialogs.min.js" type="text/javascript"></script>
     @Scripts.Render("~/bundles/app")
     @RenderSection("scripts", required: false)
 </body>

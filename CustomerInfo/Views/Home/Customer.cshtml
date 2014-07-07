@@ -8,10 +8,11 @@
     </div>
     <div class="user-details" data-ng-show="selectedUser">
         <div class="well well-large">
-            <form>
+            <form id="customerInfo">
 
                 <div class="form-group">
-                    <label for="firstName">First Name</label>
+
+                    <label for="firstName">First Name<span class="requiredField">*</span></label>
                     <input type="text" id="firstName" name="firstName" data-ng-model="selectedUser.FirstName" />
                     <label for="lastName">Last Name</label>
                     <input type="text" id="lastName" name="lastName" data-ng-model="selectedUser.LastName" />
@@ -55,6 +56,7 @@
                 </div>
 
                 <div class="form-group">
+                    @*<input type="button" id="btnSubmit" class="btn" data-ng-click="launch('confirm')" value="UPDATE" />*@
                     <input type="button" id="btnSubmit" class="btn" data-ng-click="updateUser(selectedUser)" value="UPDATE" />
                 </div>
 
