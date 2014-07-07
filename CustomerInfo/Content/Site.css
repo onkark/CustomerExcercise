@@ -1,0 +1,87 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Section titles */
+.SectionTitle {
+    color: #aaa;
+    font-family: Arial;
+    font-size: 16px;
+}
+
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+    border-color: #ddd;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+    input[type=button] {
+        background-color: #555;
+        color: #fff;
+    }
+
+label {
+    color: #000;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.grid-style {
+    border: 1px solid rgb(212,212,212);
+    min-height: 250px;
+    max-height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.user-details {
+    margin-top: 50px;
+}
+
+.gender-text {
+    margin: 0 5px;
+    vertical-align: sub;
+}
