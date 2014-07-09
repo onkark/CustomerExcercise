@@ -30,17 +30,22 @@
         ]
     };
 
-    //update grid with updated data
-    $scope.updateUser = function (user) {
+    $scope.addNewUser = function () {
+        $scope.usersList.push({ Id: 0});
+        $scope.selectedUser = $scope.usersList[($scope.usersList.length - 1)];
+        $(".ngViewport").focus();
+        $scope.userGrid.selectRow(($scope.usersList.length - 1), true);
+    };
 
-        if (user.FirstName.length <= 0)
-        {
+    //update customer and grid
+    $scope.updateUser = function (user) {
+        if (user.FirstName.length <= 0) {
             alert('Customer First name required.')
             return;
         }
-                
         userResource.update(user, function (updatedUser) {
-            $scope.selectedUsers[0].Id = updatedUser.id;
+            $scope.selectedUser.Id = updatedUser.Id;
+            $scope.selectedUsers[0].Id = updatedUser.Id;
             $scope.selectedUsers[0].FirstName = updatedUser.FirstName;
             $scope.selectedUsers[0].LastName = updatedUser.LastName;
             $scope.selectedUsers[0].Gender = updatedUser.Gender;
@@ -101,17 +106,6 @@
             });
         }
     });
-
-    $scope.$watch('selectedUser.genderMale', function (genderMale) {
-        if (genderMale === 1)
-            $scope.selectedUser.Gender = 'M';
-    });
-
-    $scope.$watch('selectedUser.genderFemale', function (genderFemale) {
-        if (genderFemale === 1)
-            $scope.selectedUser.Gender = 'F';
-    });
-
 
     //Ref# http://codepen.io/m-e-conroy/pen/ALsdF
     $scope.launch = function (which) {

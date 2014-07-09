@@ -82,8 +82,8 @@ namespace CustomerInfo.Controllers
 
             if (id == 0)
                 db.Customers.Add(customer);
-
-            db.Entry(customer).State = EntityState.Modified;
+            else
+                db.Entry(customer).State = EntityState.Modified;
 
             try
             {
@@ -104,8 +104,10 @@ namespace CustomerInfo.Controllers
                     throw;
                 }
             }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            if (id == 0)
+                return CreatedAtRoute("DefaultApi", new { id = customer.Id }, customer);
+            else
+                return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST api/Customer
@@ -119,7 +121,6 @@ namespace CustomerInfo.Controllers
 
             db.Customers.Add(customer);
             db.SaveChanges();
-
             return CreatedAtRoute("DefaultApi", new { id = customer.Id }, customer);
         }
 
