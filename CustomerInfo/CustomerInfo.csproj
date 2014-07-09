@@ -208,7 +208,6 @@
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\contact.js" />
     <Content Include="Scripts\app\customer.js" />
-    <Content Include="Scripts\app\demo.js" />
     <Content Include="Scripts\app\directives.js" />
     <Content Include="Scripts\app\main.js" />
     <Content Include="Scripts\app\services.js" />
